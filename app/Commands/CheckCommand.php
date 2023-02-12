@@ -33,15 +33,15 @@ class CheckCommand extends Command
         foreach($this->validChars as $ch1){
             $this->info('Checking ' . $ch1 . 'x.pl');
             foreach($this->validChars as $ch2){
-                //foreach($this->validChars as $ch3){
+                foreach($this->validChars as $ch3){
                     $output = null;
-                    exec('host -t a ' . $ch1 . $ch2 . /* $ch3  . */'.pl', $output);
+                    exec('host -t a ' . $ch1 .   $ch2 . $ch3  . '.pl', $output);
                     if(is_numeric(stripos($output[0], 'not found'))){
-                        $this->error($output[0]);
+                        $this->error($output[0] . 'go to check it: ' . 'https://dns.pl/whois?domainName=' . $ch1 .  $ch2 .  $ch3  . '.pl');
                     }else{
                         $this->line($output[0]);
                     }
-                //}
+                }
             }
         }
         $this->info('Finished!');
